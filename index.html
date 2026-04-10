@@ -1336,9 +1336,16 @@
     <p><strong>Zahid Mansur</strong> · PhD Scholar, IIT Jodhpur</p>
     <p>Medical Image Analysis &amp; Self-Supervised Learning</p>
     <p style="margin-top:10px; font-size:0.75rem;">© 2024–2026 · Last updated April 2026</p>
+    <div id="visit-counter" style="display:inline-block;margin-top:14px;padding:5px 14px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;font-size:0.75rem;color:rgba(255,255,255,0.4);letter-spacing:0.04em;">…</div>
 </footer>
 
 <script>
+    // Visit counter
+    fetch('https://api.counterapi.dev/v1/zahid-portfolio/visits/up')
+        .then(r => r.json())
+        .then(d => { document.getElementById('visit-counter').textContent = d.count ?? d.value; })
+        .catch(() => { document.getElementById('visit-counter').style.display = 'none'; });
+
     // Nav becomes solid when user scrolls past hero
     const nav = document.getElementById('mainNav');
     window.addEventListener('scroll', () => {
