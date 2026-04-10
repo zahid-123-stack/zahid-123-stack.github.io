@@ -1342,15 +1342,16 @@
 
 <script>
     // Visit counter — only increments once per browser (unique visitors)
-    const alreadyCounted = localStorage.getItem('zm_visited');
+    localStorage.removeItem('zm_visited');
+    const alreadyCounted = localStorage.getItem('zm_visited_v2');
     const counterUrl = alreadyCounted
-        ? 'https://api.counterapi.dev/v1/zahid-portfolio/visits/'
-        : 'https://api.counterapi.dev/v1/zahid-portfolio/visits/up';
+        ? 'https://api.counterapi.dev/v1/zahid-portfolio/visits-v2/'
+        : 'https://api.counterapi.dev/v1/zahid-portfolio/visits-v2/up';
     fetch(counterUrl)
         .then(r => r.json())
         .then(d => {
             document.getElementById('visit-counter').textContent = d.count ?? d.value;
-            if (!alreadyCounted) localStorage.setItem('zm_visited', '1');
+            if (!alreadyCounted) localStorage.setItem('zm_visited_v2', '1');
         })
         .catch(() => { document.getElementById('visit-counter').style.display = 'none'; });
 
