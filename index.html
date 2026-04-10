@@ -1341,10 +1341,17 @@
 </footer>
 
 <script>
-    // Visit counter
-    fetch('https://api.counterapi.dev/v1/zahid-portfolio/visits/up')
+    // Visit counter — only increments once per browser (unique visitors)
+    const alreadyCounted = localStorage.getItem('zm_visited');
+    const counterUrl = alreadyCounted
+        ? 'https://api.counterapi.dev/v1/zahid-portfolio/visits'
+        : 'https://api.counterapi.dev/v1/zahid-portfolio/visits/up';
+    fetch(counterUrl)
         .then(r => r.json())
-        .then(d => { document.getElementById('visit-counter').textContent = d.count ?? d.value; })
+        .then(d => {
+            document.getElementById('visit-counter').textContent = d.count ?? d.value;
+            if (!alreadyCounted) localStorage.setItem('zm_visited', '1');
+        })
         .catch(() => { document.getElementById('visit-counter').style.display = 'none'; });
 
     // Nav becomes solid when user scrolls past hero
